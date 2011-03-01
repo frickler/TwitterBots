@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from xgoogle.translate import LanguageDetector, DetectionError, Translator, TranslationError
+#from xgoogle.translate import LanguageDetector, DetectionError, Translator, TranslationError
 from krugi_constants import *
 import tweepy, time, pickle, wolframalpha
 
@@ -53,7 +53,7 @@ class Smart_Krugi():
             #if lang.lang_code != 'en':
             #    text = self.translate(text)
 
-            # ask dropbox
+            # ask wolfram
             query = wolframalpha.WolframAlpha(text)
             #for rs in query.results:
             #    if 'result' in rs.title.lower():
