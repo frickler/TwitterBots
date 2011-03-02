@@ -63,7 +63,7 @@ class Smart_Krugi():
             query = wolframalpha.WolframAlpha(text)
             
             if len(query.results) >= 2:
-                answer = query.results[1].result_raw.replace('Wolfram|Alpha',OWN_NAME)
+                answer = query.results[1].result_raw.replace('Wolfram|Alpha',OWN_NAME).replace('Stephen Wolfram', 'a frickler')
             else:
                 if '?' in status.text:
                     if 'clothes' in status.text:
