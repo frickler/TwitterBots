@@ -57,7 +57,7 @@ class Smart_Krugi():
         self.refresh_whitelist()
 
     def refresh_whitelist(self):
-        self.WHITELIST = ['flurischt','steffstefferson','webair84','krigu_tha_one', 'buergich']
+        self.WHITELIST = api.friends_ids()
 
     def listen(self, api):
         last_id = self.recover()
@@ -90,10 +90,20 @@ class Smart_Krugi():
         output.close()
 
     def process(self, status):
-        username = status.user.screen_name.lower()
-        print 'got a message from @%s : %s' % (username,status.text)
-        if username != OWN_NAME and username in self.WHITELIST:
+        user = status.user
+        print 'got a message from @%s : %s' % (user.screen_name,status.text)
+        if user.screen_name.lower() != OWN_NAME and user.id in self.WHITELIST:
             text = status.text.lower().replace('@'+OWN_NAME,'')
+
+            if user.screen_name.lower() == THE_OWNER and '#follow' in text:
+                text = text.replace('#follow', '')
+                try:
+                    api.create_friendship(text)
+                    answer = 'done!'
+                except tweepy.error.TweepError:
+                    answer = 'failed'
+                self.reply(status,answer)
+                return
             
             # ask wolfram
             answer = None
@@ -114,11 +124,14 @@ class Smart_Krugi():
                     answer = '%s (Errcode %i)' % (RANDOM_PHRASES[random.randint(0,len(RANDOM_PHRASES)-1)], random.randint(0,10000))
 
             self.reply(status,answer)
+        else:
+            print 'ignored'
 
     def process_dbg(self, text):
         user = tweepy.User()
         status = tweepy.Status() 
         user.screen_name = 'flurischt'
+        user.id = 999999
         status.id = 99999
         status.text = text
         status.user = user
@@ -137,7 +150,7 @@ class Smart_Krugi():
             if not DEBUG:
                 self.api.update_status(message,status.id)
             print message
-        except tweepy.TweepError:
+        except tweepy.error.TweepError:
             print formatExceptionInfo()
 
 if __name__ == '__main__':
