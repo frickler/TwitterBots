@@ -63,6 +63,7 @@ class Smart_Krugi():
         last_id = self.recover()
         print 'DEBUG: %s' % DEBUG
         print 'recovered:', last_id
+        i = 0
         while(True):
             if last_id:
                 tweets = api.mentions(last_id)
@@ -75,6 +76,10 @@ class Smart_Krugi():
             self.backup(last_id)
             # at maximum 350 requests per hour !!!
             time.sleep(30)
+
+            if i % 50 == 0:
+                self.refresh_whitelist()
+            i += 1
 
     def recover(self):
         pkl_file = open(PICKLE_FILE, 'rb')
@@ -98,10 +103,11 @@ class Smart_Krugi():
             if user.screen_name.lower() == THE_OWNER and '#follow' in text:
                 text = text.replace('#follow', '')
                 try:
-                    api.create_friendship(text)
-                    answer = 'done!'
+                    if not DEBUG:
+                        api.create_friendship(text)
+                    answer = 'i follow now %s' % text
                 except tweepy.error.TweepError:
-                    answer = 'failed'
+                    answer = 'cannot follow %s' % text
                 self.reply(status,answer)
                 return
             
