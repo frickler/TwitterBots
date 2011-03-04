@@ -1,0 +1,119 @@
+10
+
+dir
+0
+https://svn.github.com/flurischt/TwitterBots.git/future_predictor/tweepy
+https://svn.github.com/flurischt/TwitterBots.git
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0bb9c8eb-0157-b9e5-7d7e-ce57b7db7bff
+
+api.py
+file
+
+
+
+add
+
+error.py
+file
+
+
+
+add
+
+streaming.py
+file
+
+
+
+add
+
+cursor.py
+file
+
+
+
+add
+
+__init__.py
+file
+
+
+
+add
+
+parsers.py
+file
+
+
+
+add
+
+test.py
+file
+
+
+
+add
+
+oauth.py
+file
+
+
+
+add
+
+utils.py
+file
+
+
+
+add
+
+auth.py
+file
+
+
+
+add
+
+binder.py
+file
+
+
+
+add
+
+cache.py
+file
+
+
+
+add
+
+models.py
+file
+
+
+
+add
+
