@@ -1,0 +1,15 @@
+################################################################################################
+# this are the answers of the funny future predictor
+#
+# please follow the following rules:
+# 1. lines beginning with # are ignored
+# 2. a line must have the format: [answer]|[how many time used default:0]|[keywords commaseperated( semicolon )]
+# 3. if a answer has no keyword it is a standard answer if no keyword of any answer matches
+# 4. you can use %planet% as variable, whitch will be replaced by a random planet like Mars
+# 5. you can use %card% as variable, whitch will be replaced by a random card like Herz-Neun
+# 6. you can use %starsign% as variable, whitch will be replaced by a random star sgin like Zwilling
+# 7. you can use %yourname% as variable, whitch will be replaced by a the questioner's name
+# 8. the more answers the better the bot is
+# 9. let's predict the future
+#
+################################################################################################
