@@ -11,13 +11,13 @@ class logic:
     def __init__(self):
         self.answers = []
         self.datastore = storage.storage()
-        self.answers = self.datastore.gettestanswers()
+        self.answers = self.datastore.getanswers()
     def getanswer(self,question):      
         return self.getanswername(question,"")
 
     def getanswername(self,question,questioner):
         if(len(self.answers) == 0):        
-            self.answers = datastore.gettestanswers()
+            self.answers = datastore.getanswers()
             
         best = None
         for a in self.answers:
@@ -63,3 +63,8 @@ class logic:
             if(not(text.find(randomtext)>-1) or iEndlessLoop > len(data)*2):
                 text = text.replace(variable,randomtext,1)
         return text
+
+    def saveanswerstofile(self):
+        if(self.datastore != None and len(self.answers) > 0):
+            self.datastore.saveanswerstofile(self.answers)
+            print('saved')

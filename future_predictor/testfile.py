@@ -15,9 +15,10 @@ def askfragename(frage,name):
     print("answer is:"+ resp)
     print("\n")
 
-print("these are the test answers: ")
+print("these are the loaded answers: ")
 for a in l.answers:
     print(a.tostring())
+    print("\n")
 
 print("\n")
 print("\n")
@@ -38,3 +39,6 @@ print("matching was:")
 for a in l.answers:
     print("answer: "+a.answer +" keywords: "+str(a.keywords))
     print("keywordmatch: "+str(a.keywordmatch)+" quality: "+str(a.getquality())+" used: "+str(a.answerused))
+
+l.saveanswerstofile();
+

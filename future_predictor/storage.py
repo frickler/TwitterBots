@@ -2,26 +2,48 @@
 
 import sys
 import answer
+from predictor_constants import *
 
 class storage:
-    def readanswers():
-        #res = urllib2.urlopen(THA_LINK)
-        #soup = BeautifulSoup(res.read())
-        #krugi_file = soup.find('a', title='krugi.txt')['href']
-        #lines = urllib2.urlopen(krugi_file).read().split('\n')
-        #answers = converttoanswers(lines)
-        return answers
+
+    def getanswersfromfile(self):
+        f = open(ANSWER_FILE,'r')
+        arry = []
+        for line in f:
+            arry.append(line)
+        f.close()
+        answer = self.linestoanswers(arry)
+        return answer
 
     def linestoanswers(self,lines):
         answers = []
         for l in lines:
             if(len(l) > 0 and l[0] != '#'):
-                arguments = l.split('|')
+                arguments = l.split(MAIN_SPLITER)
                 if len(arguments) == 3:
-                    a = answer.answer(arguments[0],arguments[1],arguments[2].split(';'))
+                    a = answer.answer(arguments[0],arguments[1],arguments[2].split(KEYWORD_SPLITER))
                     #print(a.tostring())
                     answers.append(a)
         return answers
+
+    def getanswers(self):
+        #return self.gettestanswers()
+        answers = self.getanswersfromfile()
+        print("\nTotal answers loaded: "+str(len(answers)))
+        return answers
+
+    def saveanswerstofile(self,answers):
+        h = open(ANSWER_HEADER_FILE,'r')
+        f = open(ANSWER_FILE,'w')
+        s = "";
+        for headerline in h:
+            s += headerline
+        s +="\n"
+        for a in answers:
+            s += a.toLineString()
+        f.write(s)
+        f.close()
+        h.close()
 
     def gettestanswers(self):
         var = "am montag#0#am;montag\n"
