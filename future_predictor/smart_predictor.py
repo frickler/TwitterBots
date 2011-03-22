@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#from krugi_constants import *
+from predictor_constants import *
 import tweepy, time, pickle, random, sys, traceback
 import logic
 import storage
