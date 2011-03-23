@@ -126,7 +126,7 @@ class Smart_Krugi():
 
                 if not answer and '?' in text:
                     answer = COUNTER_QUESTIONS[random.randint(0,len(COUNTER_QUESTIONS)-1)]
-                else:
+                elif not answer:
                     answer = '%s (Errcode %i)' % (RANDOM_PHRASES[random.randint(0,len(RANDOM_PHRASES)-1)], random.randint(0,10000))
 
             self.reply(status,answer)
