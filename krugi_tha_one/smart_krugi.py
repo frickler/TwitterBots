@@ -160,7 +160,7 @@ class Smart_Krugi():
             print formatExceptionInfo()
 
 if __name__ == '__main__':
-    # dirty workaraound for the unicode problems
+    # dirty workaround for the unicode problems
     import sys
     reload(sys)
     sys.setdefaultencoding('utf-8')
