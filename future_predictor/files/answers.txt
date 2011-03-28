@@ -1,4 +1,4 @@
-################################################################################################
+ï»¿################################################################################################
 # this are the answers of the funny future predictor
 #
 # please follow the following rules:
@@ -14,19 +14,19 @@
 #
 ################################################################################################
 nach %planet% wird das wetter ist lausig.|0|wetter;morgen
-Ich habe für dich die Karte %card% gezogen. Das bedeutet nichts Gutes. Pass auf dich auf.|0|Job;Arbeit
+Ich habe fÃ¼r dich die Karte %card% gezogen. Das bedeutet nichts Gutes. Pass auf dich auf.|0|Job;Arbeit
 Ich sehe in den Karten %card% und %card% nicht gutes du solltest Partner wechseln.|0|Liebe;Partner
 vielleicht auch nicht|0|vielleicht;auch;nicht
-chäser ist der beste|0|wer;beste;sicher
-das wetter ist schön|0|wetter;morgen
-webair ist der schönste|0|wer;schönste;schönster;suche
+chÃ¤ser ist der beste|0|wer;beste;sicher
+das wetter ist schÃ¶n|0|wetter;morgen
+webair ist der schÃ¶nste|0|wer;schÃ¶nste;schÃ¶nster;suche
 Nachdem ich die Karte %card% anschaute und im Himmel den %starsign% erblickte, kann ich dir sagen: Nein!|0|werde;bin;weshalb
 Ich blicke kurz in die Kristallkugel... Nein das wird nichts|0|
 Ja auf jeden Fall. Am Ball bleiben ist die Devise.|0|
-Lotto besteht aus Zufall, Wahrsagen auch. Deshalb rate ich dir: Investiere in Lottotipps, es lohnt sich.|0|Lotto;Glücksspiel
-Ich habe für dich die Karten neu gelegt. Die Karten %card% und %card% verheissen leider nichts gutes.|0|
-Die Konstellation von %starsign% und %starsgin% stehen vorallem am Wochenende günstig|0|Zeitpunkt;Wann
+Lotto besteht aus Zufall, Wahrsagen auch. Deshalb rate ich dir: Investiere in Lottotipps, es lohnt sich.|0|Lotto;GlÃ¼cksspiel
+Ich habe fÃ¼r dich die Karten neu gelegt. Die Karten %card% und %card% verheissen leider nichts gutes.|0|
+Die Konstellation von %starsign% und %starsgin% stehen vorallem am Wochenende gÃ¼nstig|0|Zeitpunkt;Wann
 Eine Frage kostet 2.50 Fr.,sogar billiger als ein Telefonanruf.|0|Wieviel kostet eine Frage,Kostet das Fragen
-Nein auf keinen Fall, für jede Anfrage werden die Karten neu gelegt.|0|abzock,über den Tisch ziehen,Antworten Zufall,fundierte Antwort
+Nein auf keinen Fall, fÃ¼r jede Anfrage werden die Karten neu gelegt.|0|abzock,Ã¼ber den Tisch ziehen,Antworten Zufall,fundierte Antwort
 Eine Person im Sternzeichen %starsign% wird dir den richtigen Weg weisen.|0|Weg weisen,wegweisen,Richtung
 Nimm lieber Linux oder Mac, dann werden auch deine Umlaute korrekt codiert|0|Betriebssystem;umlaute

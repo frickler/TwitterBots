@@ -8,7 +8,6 @@ import storage
 
 
 ## SETTINGS ##
-OWN_NAME = 'MlKE_SHlVA'
 PICKLE_FILE = 'data.pkl'
 DEBUG = True
 
@@ -69,28 +68,31 @@ class Smart_Predictor():
     def process(self, status):
         user = status.user
         print 'got a message from @%s : %s' % (user.screen_name,status.text)
-        if user.screen_name.lower() != OWN_NAME
-		
-		#to get popular follow the questionasker:
-		try:
-            if not DEBUG:
-				api.create_friendship(user.screen_name)
+        if user.screen_name.lower() != OWN_NAME:
+        
+            #to get popular follow the questionasker:
+            try:
+                if not DEBUG:
+                    api.create_friendship(user.screen_name)
                     print('i follow now %s' % user.screen_name)
-                except tweepy.error.TweepError:
-                     print('cannot follow %s' % user.screen_name)
-            
-			#tweeted question is:
+            except tweepy.error.TweepError:
+                print('cannot follow %s' % user.screen_name)
+                
+            #tweeted question is:
             text = status.text.lower().replace('@'+OWN_NAME,'')
-
-			#want to now the schicksalsjahre
-            if 'Schicksalsjahre' in text:
-                self.reply(status,predictorlogic.getschicksalsjahre(text))
+            print 'asked question '+text
+            #want to now the schicksalsjahre
+            if 'schicksalsjahre' in text or 'schicksalsjahr' in text:
+                self.reply(status,predictorlogic.getschicksalsjahre(text.replace('Schicksalsjahre','')))
                 return
-            
-			#get an answer
-			answer = predictorlogic.getanswer(text)
-			if len(answer) > 0:
-				self.reply(status,answer)
+            if 'wochentendenz' in text:
+                self.reply(status,predictorlogic.getwochentendenz())
+                return  
+                
+            #get an answer
+            answer = predictorlogic.getanswer(text)
+            if len(answer) > 0:
+                self.reply(status,answer)
 
 
     def process_dbg(self, text):
@@ -103,11 +105,7 @@ class Smart_Predictor():
         status.user = user
         self.process(status)
 
-    def reply(self,status,answer):
-        # remove the "forbidden" keywords 
-        for (k,v) in HIDE:
-            answer.replace(k, v)
-        
+    def reply(self,status,answer):        
         message = '@%s %s' % (status.user.screen_name, answer)
 
         if len(message) > 140:
@@ -127,8 +125,8 @@ if __name__ == '__main__':
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
-    smart = Smart_Krugi(api)
-	predictorlogic = logic.logic()
+    smart = Smart_Predictor(api)
+    predictorlogic = logic.logic()
     try:
         smart.listen(api)
     except KeyboardInterrupt:

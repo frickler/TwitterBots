@@ -1,6 +1,10 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
 import sys
+import tweepy
+import json,random
+from BeautifulSoup import BeautifulSoup
+from tweepy.error import TweepError
 from predictor_constants import *
 
 def get_tweet_lines():
@@ -25,7 +29,7 @@ def get_me_a_tweet():
     tweet = get_me_one_tweet(tweets)
     save_tweet_lines(tweets)
     return tweet
-	
+    
 def get_me_one_tweet(tweets):
     usage = 99
     idx = -1
@@ -45,9 +49,10 @@ def get_me_one_tweet(tweets):
         save_tweet_lines(tweets)
         return tweet
     return "no tweet found"
-"""
+
+    
 def send_tweet():
-    tweets = get_tweet_lines()
+    print('send tweet')
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
@@ -55,12 +60,15 @@ def send_tweet():
     while(c<20):
         c = c + 1
         try:
-            api.update_status(get_me_one_tweet(tweets))
+            api.update_status(get_me_a_tweet())
             break;
         except TweepError:
+            print('tweeperror')
             pass
+            
 
 if __name__ == '__main__':
+    print('started')
     send_tweet()
-"""
+
 

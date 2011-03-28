@@ -1,3 +1,4 @@
 krugi_constants.py
 *.pyc
 data.pkl
+predictor_constants.py

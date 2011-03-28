@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# -*- coding: utf-8 -*-
 import sys, string
 from predictor_constants import *
 
@@ -22,7 +22,7 @@ class answer:
      self.question = init_question
      self.keywordmatch = 0
      for kword in self.keywords:
-        if(init_question.find(kword) > 0):
+        if str(kword) in init_question:
             self.keywordmatch += 1
             #print("found "+kword)
      return self.keywordmatch
