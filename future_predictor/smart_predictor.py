@@ -11,6 +11,7 @@ import storage
 PICKLE_FILE = 'data.pkl'
 DEBUG = True
 
+
 def formatExceptionInfo(maxTBlevel=5):
     cla, exc, trbk = sys.exc_info()
     excName = cla.__name__
@@ -23,16 +24,19 @@ def formatExceptionInfo(maxTBlevel=5):
     
 class Smart_Predictor():
 
-    def __init__(self, api):
+    def __init__(self, api, debug):
         self.api = api
         self.refresh_whitelist()
+        self.predictorlogic = logic.logic()
+        self.debug = debug
+
 
     def refresh_whitelist(self):
-        self.WHITELIST = api.friends_ids()
+        self.WHITELIST = self.api.friends_ids()
 
     def listen(self, api):
         last_id = self.recover()
-        print 'DEBUG: %s' % DEBUG
+        print 'DEBUG: %s' % self.debug
         print 'recovered:', last_id
         i = 0
         while(True):
@@ -72,7 +76,7 @@ class Smart_Predictor():
         
             #to get popular follow the questionasker:
             try:
-                if not DEBUG:
+                if not self.debug:
                     api.create_friendship(user.screen_name)
                     print('i follow now %s' % user.screen_name)
             except tweepy.error.TweepError:
@@ -87,10 +91,10 @@ class Smart_Predictor():
                 if len(sdatum) < 6:
                     self.reply(status,'Du hast dein Geburtsdatum vergessen')
                     return
-                self.reply(status,predictorlogic.getschicksalsjahre(sdatum))
+                self.reply(status,self.predictorlogic.getschicksalsjahre(sdatum))
                 return
             if 'wochentendenz' in text:
-                self.reply(status,predictorlogic.getwochentendenz())
+                self.reply(status,self.predictorlogic.getwochentendenz())
                 return
                 
             if 'tageswerte' in text:
@@ -98,7 +102,7 @@ class Smart_Predictor():
                 if len(sternzeichen) < 3:
                     self.reply(status,'Sag mir auch dein Sternzeichen.')
                     return
-                self.reply(status,predictorlogic.gettageswerte(sternzeichen))
+                self.reply(status,self.predictorlogic.gettageswerte(sternzeichen))
                 return  
             
             if 'tageshoroskop' in text:
@@ -106,11 +110,11 @@ class Smart_Predictor():
                 if len(sternzeichen) < 3:
                     self.reply(status,'Sag mir auch dein Sternzeichen.')
                     return
-                self.reply(status,predictorlogic.gettageshoroskop(sternzeichen))
+                self.reply(status,self.predictorlogic.gettageshoroskop(sternzeichen))
                 return
                 
             #get an answer
-            answer = predictorlogic.getanswer(text)
+            answer = self.predictorlogic.getanswer(text)
             if len(answer) > 0:
                 self.reply(status,answer)
 
@@ -131,7 +135,7 @@ class Smart_Predictor():
         if len(message) > 140:
             message = message[0:139]
         try:
-            if not DEBUG:
+            if not self.debug:
                 self.api.update_status(message,status.id)
             print message
         except tweepy.error.TweepError:
@@ -145,8 +149,7 @@ if __name__ == '__main__':
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
-    smart = Smart_Predictor(api)
-    predictorlogic = logic.logic()
+    smart = Smart_Predictor(api, DEBUG)
     try:
         smart.listen(api)
     except KeyboardInterrupt:
