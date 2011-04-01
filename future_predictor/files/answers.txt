@@ -1,4 +1,4 @@
-﻿################################################################################################
+################################################################################################
 # this are the answers of the funny future predictor
 #
 # please follow the following rules:
@@ -13,20 +13,22 @@
 # 9. let's predict the future
 #
 ################################################################################################
-nach %planet% wird das wetter ist lausig.|0|wetter;morgen
+nach %planet% wird das wetter ist lausig.|1|wetter;morgen
 Ich habe für dich die Karte %card% gezogen. Das bedeutet nichts Gutes. Pass auf dich auf.|0|Job;Arbeit
-Ich sehe in den Karten %card% und %card% nicht gutes du solltest Partner wechseln.|0|Liebe;Partner
+Ich sehe in den Karten %card% und %card% nicht gutes du solltest Partner wechseln.|3|Liebe;Partner wechseln;neuer Partner;Partner;Partner treu bleiben
 vielleicht auch nicht|0|vielleicht;auch;nicht
-chäser ist der beste|0|wer;beste;sicher
+chäser ist der beste|4|wer;beste;sicher
 das wetter ist schön|0|wetter;morgen
 webair ist der schönste|0|wer;schönste;schönster;suche
 Nachdem ich die Karte %card% anschaute und im Himmel den %starsign% erblickte, kann ich dir sagen: Nein!|0|werde;bin;weshalb
 Ich blicke kurz in die Kristallkugel... Nein das wird nichts|0|
 Ja auf jeden Fall. Am Ball bleiben ist die Devise.|0|
-Lotto besteht aus Zufall, Wahrsagen auch. Deshalb rate ich dir: Investiere in Lottotipps, es lohnt sich.|0|Lotto;Glücksspiel
+Lotto besteht aus Zufall, Wahrsagen auch. Deshalb rate ich dir: Investiere in Lottotipps, es lohnt sich.|2|Lotto;Glücksspiel;spielen
+Lotto ist immer eine gute Sache.|2|Lotto;Glücksspiel
 Ich habe für dich die Karten neu gelegt. Die Karten %card% und %card% verheissen leider nichts gutes.|0|
 Die Konstellation von %starsign% und %starsgin% stehen vorallem am Wochenende günstig|0|Zeitpunkt;Wann
-Eine Frage kostet 2.50 Fr.,sogar billiger als ein Telefonanruf.|0|Wieviel kostet eine Frage,Kostet das Fragen
-Nein auf keinen Fall, für jede Anfrage werden die Karten neu gelegt.|0|abzock,über den Tisch ziehen,Antworten Zufall,fundierte Antwort
-Eine Person im Sternzeichen %starsign% wird dir den richtigen Weg weisen.|0|Weg weisen,wegweisen,Richtung
+Eine Frage kostet 2.50 Fr.,sogar billiger als ein Telefonanruf.|0|Wieviel kostet eine Frage;Kostet das Fragen
+Nein auf keinen Fall, für jede Anfrage werden die Karten neu gelegt.|0|abzock;über den Tisch ziehen;Antworten Zufall;fundierte Antwort
+Eine Person im Sternzeichen %starsign% wird dir den richtigen Weg weisen.|0|Weg weisen;wegweisen;Richtung
 Nimm lieber Linux oder Mac, dann werden auch deine Umlaute korrekt codiert|0|Betriebssystem;umlaute
+Ein neuer Job gibt dir neuen Schwung|0|Job wechseln;neuer Job

@@ -1,19 +1,23 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import logic
 import storage
 
 l = logic.logic()
 
 def askfrage(frage):
-    print("aks: "+frage)
     resp = l.getanswer(frage)
-    print("answer is:"+ resp)
-    print("\n")
+    print("\n----------------------------------------\n")
+    print("aks: "+frage)
+    print("the answer is:"+ resp)
+    print("\n-------------------------------------------\n")
 
 def askfragename(frage,name):
-    print("aks: "+frage)
     resp = l.getanswername(frage,name)
-    print("answer is:"+ resp)
-    print("\n")
+    print("\n----------------------------------------\n")
+    print("aks: "+frage)    
+    print("the answer is:"+ resp)
+    print("\n-------------------------------------------\n")
 
 print("these are the loaded answers: ")
 for a in l.answers:
@@ -23,14 +27,11 @@ for a in l.answers:
 print("\n")
 print("\n")
   
-askfrage("wer ist der beste")
-askfrage("wie ist das wetter")
-askfrage("wie ist das wetter")
-askfrage("wie ist das wetter")
+#askfrage("wer ist der beste")
+#askfrage("wie ist das wetter")
 askfrage("Soll ich meinem Partner treu bleiben?")
 askfrage("Welches Sternzeichen ist das beste?")
-askfrage("Welches Sternzeichen ist das beste?")
-askfrage("Welches Sternzeichen ist das beste?")
+askfrage("Soll ich Lotto spielen?")
 askfragename("Bitte um Rat: Soll ich mich scheiden lassen?","Stefan")
 print("\n")
 print("\n")

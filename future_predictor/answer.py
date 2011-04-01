@@ -22,7 +22,7 @@ class answer:
      self.question = init_question
      self.keywordmatch = 0
      for kword in self.keywords:
-        if str(kword) in init_question:
+        if len(str(kword)) > 0 and str(kword).lower() in init_question.lower():
             self.keywordmatch += 1
             #print("found "+kword)
      return self.keywordmatch

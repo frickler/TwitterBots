@@ -6,6 +6,8 @@ import storage
 import random
 import time
 import json
+import urllib
+import string
 
 def getInt(strin,defaultint):
     try:
@@ -24,6 +26,12 @@ class logic:
     def getanswer(self,question):      
         return self.getanswername(question,"")
 
+    def getStars(self,basestars):
+        stars = ""
+        for v in range(0, basestars):
+            stars += "*"
+        return stars
+        
     def getwochentendenz(self):
         idx = time.strftime("%w")
         idx = int(idx)
@@ -31,18 +39,32 @@ class logic:
         arry = []
         sreturn = "Deine Wochentendenz: \n"
         basestars = random.randint(0,7)
-        for i in range(idx+1, idx+7):
+        for i in range(idx, idx+6):
             sreturn += wkdays[i]+" "
             basestars = random.randint(0,4)-2+basestars
             if random.randint(0,4)-2+basestars < 0:
                 basestars = 1
             if random.randint(0,4)-2+basestars > 7:
                 basestars = 6    
-            for v in range(0, basestars):
-                sreturn += "*"
+            sreturn += self.getStars(basestars)
             sreturn += "\n"
         return sreturn
-            
+    
+    def gettageswerte(self,ssternzeichen):
+        sternzeichen = ssternzeichen.lower()
+        print "\npredict tageswerte for "+sternzeichen
+        count = 0
+        for i in range(0,len(sternzeichen)-1):
+            count += ord(sternzeichen[i])
+        count = count * int(time.strftime("%d"))   + int(time.strftime("%m")) 
+        
+        sReturn = "Tageswerte für Sternzeichen: "+ssternzeichen+"\n"
+        sReturn +=  "Liebe: "+self.getStars((count+10)%7)+"\n"
+        sReturn +=  "Glück: "+self.getStars((count*3)%7)+"\n"
+        sReturn +=  "Gesundheit: "+self.getStars((count+ord(sternzeichen[2]))%7)+"\n"
+        sReturn +=  "Arbeit: "+self.getStars((count+ord(sternzeichen[2])/2)%7)+"\n"
+        return sReturn;
+
     def getschicksalsjahre(self,text):
         month = "1"
         year = "2000"
@@ -61,10 +83,16 @@ class logic:
             year = text[2]    
         
         arry = []
+        
+        iMax = random.randint(2,4)
+        
         arry.append(2012 + getInt(day,3))
-        arry.append(2000 + getInt(month,4))
-        arry.append(2015 * getInt(month,7) / getInt(year,2012))
-        arry.append(1920 + getInt(month,4) * getInt(day,12))
+        if iMax > 1:
+            arry.append(2000 + getInt(month,4))
+        if iMax > 2:
+            arry.append(2015 * getInt(month,7) / getInt(year,2012))
+        if iMax > 3:
+            arry.append(1920 + getInt(month,4) * getInt(day,12))
         
         for i in range(0, len(arry)):
             print(arry[i])
@@ -75,12 +103,40 @@ class logic:
         
         arry.sort()
         
+        sReturn = ""
+        
         for i in range(0, len(arry)-1):
             if round(arry[i]) > round(arry[i+1]-2):
-                arry[i+1] = arry[i+1]+3+i
-        
-        return "Deine Schicksalsjahre sind"+" "+str(int(arry[0]))+" "+str(int(arry[1]))+" "+str(int(arry[2]))+" "+str(int(arry[3]));
-        
+                arry[i+1] = arry[i+1]+random.randint(1,4)
+            sReturn += " "+str(int(arry[i]))
+            
+        return "Deine Schicksalsjahre sind"+sReturn;
+    
+    def gettageshoroskop(self,sternzeichen):
+        signs = self.datastore.getstarsgins()
+        sign = ""
+        sternzeichen = sternzeichen.replace(" ","")
+        for i in range(0, len(signs)-1):
+            if sternzeichen.lower() == signs[i].lower():
+                sign = sternzeichen
+        if len(sign) == 0:
+            sign = signs[random.randint(0,len(signs)-1)]    
+        url = "http://www.astrowelt.com/horoskop/tag/"+sign
+        print "call url: "+url
+        f = urllib.urlopen(url)
+        s = f.read()
+        f.close()
+
+        #achtung hier folgt ein gefrickler von franz frickler
+        s = s.replace("\n","")
+        start = string.find(s,"<h3 class=\"horoskop\">")
+        end = string.find(s,"othersigns")
+        s = s[start:end]
+        start = string.find(s,"<p>")
+        end = string.find(s,"</p>")
+        s = s[start+3:end]
+
+        return s    
         
     def getanswername(self,question,questioner):
         if(len(self.answers) == 0):        
@@ -90,6 +146,7 @@ class logic:
         for a in self.answers:
             a.keywordsmatch(question)
             if(len(a.keywords)>0 and a.keywordmatch == 0):
+                #print "not good answer: "+a.tostring()
                 continue
             #       standard answer
             if((best == None and (len(a.keywords)==0 or a.keywordmatch > 0))\
