@@ -13,13 +13,10 @@
 # 9. let's predict the future
 #
 ################################################################################################
-nach %planet% wird das wetter ist lausig.|1|wetter;morgen
+Nach %planet% wird das wetter ist lausig.|1|wetter;morgen
 Ich habe für dich die Karte %card% gezogen. Das bedeutet nichts Gutes. Pass auf dich auf.|0|Job;Arbeit
 Ich sehe in den Karten %card% und %card% nicht gutes du solltest Partner wechseln.|3|Liebe;Partner wechseln;neuer Partner;Partner;Partner treu bleiben
-vielleicht auch nicht|0|vielleicht;auch;nicht
-chäser ist der beste|4|wer;beste;sicher
-das wetter ist schön|0|wetter;morgen
-webair ist der schönste|0|wer;schönste;schönster;suche
+Das Wetter wird schön|0|wetter;morgen
 Nachdem ich die Karte %card% anschaute und im Himmel den %starsign% erblickte, kann ich dir sagen: Nein!|0|werde;bin;weshalb
 Ich blicke kurz in die Kristallkugel... Nein das wird nichts|0|
 Ja auf jeden Fall. Am Ball bleiben ist die Devise.|0|
@@ -32,3 +29,10 @@ Nein auf keinen Fall, für jede Anfrage werden die Karten neu gelegt.|0|abzock;�
 Eine Person im Sternzeichen %starsign% wird dir den richtigen Weg weisen.|0|Weg weisen;wegweisen;Richtung
 Nimm lieber Linux oder Mac, dann werden auch deine Umlaute korrekt codiert|0|Betriebssystem;umlaute
 Ein neuer Job gibt dir neuen Schwung|0|Job wechseln;neuer Job
+YB gewinnt doch immer.|0|Gewinnt YB;YB gegen
+Die Familie ist für jeden wichtig und darf nicht vernachlässigt werden.|0|Familie
+Ist dein Partner im Sternzeichen %starsign% oder %starsign%, dann wird es was.|0|Partner;neuer Partner
+Ein Jobwechsel nur machen wenn du bereits eine neue Stelle hast|0|neuer Job;Jobwechsel
+Dein Liebesleben wird sich ab nächster Woche markant verbessern|0|Liebesleben;Aussichten in der Liebe;Liebe
+Die nächsten Lottozahlen lauten: 12,18,20,34,36,45  12 Plus 3|0|Wie lauten die Lottozahlen;Lottozahlen voraussagen;Lottozahlen der nächsten Ziehung;Lottozahlen
+
