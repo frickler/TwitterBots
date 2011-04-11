@@ -9,6 +9,8 @@ import json
 import urllib
 import string
 
+from predictor_constants import *
+
 def getInt(strin,defaultint):
     try:
         number = int(strin)
@@ -37,7 +39,7 @@ class logic:
         idx = int(idx)
         wkdays = ["Mo","Di","Mi","Do","Fr","Sa","So","Mo","Di","Mi","Do","Fr","Sa","So"]
         arry = []
-        sreturn = "Deine Wochentendenz: \n"
+        sreturn = "Deine Wochentendenz:"+NEW_LINE
         basestars = random.randint(0,7)
         for i in range(idx, idx+6):
             sreturn += wkdays[i]+" "
@@ -47,7 +49,7 @@ class logic:
             if random.randint(0,4)-2+basestars > 7:
                 basestars = 6    
             sreturn += self.getStars(basestars)
-            sreturn += "\n"
+            sreturn += NEW_LINE
         return sreturn
     
     def gettageswerte(self,ssternzeichen):
@@ -58,11 +60,11 @@ class logic:
             count += ord(sternzeichen[i])
         count = count * int(time.strftime("%d"))   + int(time.strftime("%m")) 
         
-        sReturn = "Tageswerte für Sternzeichen: "+ssternzeichen+"\n"
-        sReturn +=  "Liebe: "+self.getStars((count+10)%7)+"\n"
-        sReturn +=  "Glück: "+self.getStars((count*3)%7)+"\n"
-        sReturn +=  "Gesundheit: "+self.getStars((count+ord(sternzeichen[2]))%7)+"\n"
-        sReturn +=  "Arbeit: "+self.getStars((count+ord(sternzeichen[2])/2)%7)+"\n"
+        sReturn = "Tageswerte für Sternzeichen: "+ssternzeichen+NEW_LINE
+        sReturn +=  "Liebe: "+self.getStars((count+10)%7)+NEW_LINE
+        sReturn +=  "Glück: "+self.getStars((count*3)%7)+NEW_LINE
+        sReturn +=  "Gesundheit: "+self.getStars((count+ord(sternzeichen[2]))%7)+NEW_LINE
+        sReturn +=  "Arbeit: "+self.getStars((count+ord(sternzeichen[2])/2)%7)+NEW_LINE
         return sReturn;
 
     def getschicksalsjahre(self,text):
@@ -113,13 +115,16 @@ class logic:
         return "Deine Schicksalsjahre sind"+sReturn;
     
     def gettageshoroskop(self,sternzeichen):
+        print "input text is "+sternzeichen
         signs = self.datastore.getstarsgins()
         sign = ""
         sternzeichen = sternzeichen.replace(" ","")
         for i in range(0, len(signs)-1):
             if sternzeichen.lower() == signs[i].lower():
                 sign = sternzeichen
+                print "sign is: "+sign
         if len(sign) == 0:
+            print "sign not found, use random one"
             sign = signs[random.randint(0,len(signs)-1)]    
         url = "http://www.astrowelt.com/horoskop/tag/"+sign
         print "call url: "+url
@@ -128,14 +133,24 @@ class logic:
         f.close()
 
         #achtung hier folgt ein gefrickler von franz frickler
-        s = s.replace("\n","")
+        s = s.replace(NEW_LINE,"")
         start = string.find(s,"<h3 class=\"horoskop\">")
         end = string.find(s,"othersigns")
         s = s[start:end]
         start = string.find(s,"<p>")
         end = string.find(s,"</p>")
         s = s[start+3:end]
-
+        
+        i = 0
+        while(i < 140):      
+            print i
+            indexP = s.find(".",i+1)
+            if(indexP < 140 and indexP > 0):
+                i = indexP
+            else:
+                break        
+        s = s[0:i+1]
+        
         return s    
         
     def getanswername(self,question,questioner):

@@ -73,8 +73,11 @@ class Smart_Predictor():
             #to get popular follow the questionasker:
             try:
                 if not DEBUG:
-                    api.create_friendship(user.screen_name)
-                    print('i follow now %s' % user.screen_name)
+                    if not API.exists_friendship(OWN_NAME, user.screen_name):
+                        api.create_friendship(user.screen_name)
+                        print('I follow now %s' % user.screen_name)
+                    else:
+                        print 'I follow already this guy: '+user.screen_name
             except tweepy.error.TweepError:
                 print('cannot follow %s' % user.screen_name)
                 
@@ -127,7 +130,11 @@ class Smart_Predictor():
 
     def reply(self,status,answer):        
         message = '@%s %s' % (status.user.screen_name, answer)
-
+        
+        if len(message) == 0:
+            print 'no message to return, do not reply'
+            return
+        
         if len(message) > 140:
             message = message[0:139]
         try:

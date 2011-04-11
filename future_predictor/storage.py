@@ -66,7 +66,7 @@ class storage:
         return ["Merkur","Venus","Mars","Jupiter","Saturn","Uranus","Neptun","Pluto"]
 
     def getstarsgins(self):
-        return ["Widder","Stier","Zwilling","Krebs","Löwe","Jungfrau","Skorpion","Schütze","Steinbock","Wassermann","Fisch"]
+        return ["Widder","Stier","Zwillinge","Krebs","Löwe","Jungfrau","Skorpion","Schütze","Steinbock","Wassermann","Fisch"]
 
     def getcards(self):
         colors = ["Herz","Karo","Schaufel","Pik","Schellen","Rosen","Schilten","Eichel"]
