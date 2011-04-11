@@ -1,11 +1,11 @@
-3|Tweete "@MlKE_SlVA Schicksalsjahre <Dein Geburtsdatum>" und erfahre deine Schicksalsjahre
-3|@Thomas_Bucheli Versuche gerade das Wetter vorher zusagen
-3|Habe gerade ein neues Wahrsagerkartenset gekauft
-3|Hat jemand meine Kristallkugel gesehen?
-2|Die Konstellation zwischen Pluto und Neptun gefällt mir nicht.
-2|Tweete "@MlKE_SlVA Wochentendenz" und erfahre deine Wochentendenz
-2|Tweete "@MlKE_SlVA Tageswerte <dein Sternzeichen>" und erfahre deine persönliche Tageswerte
-2|Tweete "@MlKE_SlVA Tageshoroskop <dein Sternzeichen>" und erfahre deine persönliches Tageshoroskop
+1|Tweete "@MlKE_SlVA Schicksalsjahre <Dein Geburtsdatum>" und erfahre deine Schicksalsjahre
+0|@Thomas_Bucheli Versuche gerade das Wetter vorher zusagen
+0|Habe gerade ein neues Wahrsagerkartenset gekauft
+0|Hat jemand meine Kristallkugel gesehen?
+0|Die Konstellation zwischen Pluto und Neptun gefällt mir nicht.
+0|Tweete "@MlKE_SlVA Wochentendenz" und erfahre deine Wochentendenz
+0|Tweete "@MlKE_SlVA Tageswerte <dein Sternzeichen>" und erfahre deine persönliche Tageswerte
+0|Tweete "@MlKE_SlVA Tageshoroskop <dein Sternzeichen>" und erfahre deine persönliches Tageshoroskop
 0|Good Price! Nur CHF 0.50 pro tweet!
 0|Living.
 0|Still Living.

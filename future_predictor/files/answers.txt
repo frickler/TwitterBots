@@ -15,13 +15,13 @@
 ################################################################################################
 Nach %planet% wird das wetter ist lausig.|1|wetter;morgen
 Ich habe für dich die Karte %card% gezogen. Das bedeutet nichts Gutes. Pass auf dich auf.|0|Job;Arbeit
-Ich sehe in den Karten %card% und %card% nicht gutes du solltest Partner wechseln.|3|Liebe;Partner wechseln;neuer Partner;Partner;Partner treu bleiben
+Ich sehe in den Karten %card% und %card% nicht gutes du solltest Partner wechseln.|0|Liebe;Partner wechseln;neuer Partner;Partner;Partner treu bleiben
 Das Wetter wird schön|0|wetter;morgen
 Nachdem ich die Karte %card% anschaute und im Himmel den %starsign% erblickte, kann ich dir sagen: Nein!|0|werde;bin;weshalb
 Ich blicke kurz in die Kristallkugel... Nein das wird nichts|0|
 Ja auf jeden Fall. Am Ball bleiben ist die Devise.|0|
-Lotto besteht aus Zufall, Wahrsagen auch. Deshalb rate ich dir: Investiere in Lottotipps, es lohnt sich.|2|Lotto;Glücksspiel;spielen
-Lotto ist immer eine gute Sache.|2|Lotto;Glücksspiel
+Lotto besteht aus Zufall, Wahrsagen auch. Deshalb rate ich dir: Investiere in Lottotipps, es lohnt sich.|0|Lotto;Glücksspiel;spielen
+Lotto ist immer eine gute Sache.|0|Lotto;Glücksspiel
 Ich habe für dich die Karten neu gelegt. Die Karten %card% und %card% verheissen leider nichts gutes.|0|
 Die Konstellation von %starsign% und %starsgin% stehen vorallem am Wochenende günstig|0|Zeitpunkt;Wann
 Eine Frage kostet 2.50 Fr.,sogar billiger als ein Telefonanruf.|0|Wieviel kostet eine Frage;Kostet das Fragen
