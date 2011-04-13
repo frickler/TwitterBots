@@ -31,7 +31,11 @@ class storage:
         answers = self.getanswersfromfile()
         print("\nTotal answers loaded: "+str(len(answers)))
         return answers
-
+    
+    def saveUnansweredQuestion(self,text,user):
+        f = open(UNANSWERED_FILE,'a')
+        f.write("\n"+user+"|"+text)
+        f.close()
     def saveanswerstofile(self,answers):
         h = open(ANSWER_HEADER_FILE,'r')
         f = open(ANSWER_FILE,'w')

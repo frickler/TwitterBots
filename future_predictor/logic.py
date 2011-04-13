@@ -124,8 +124,9 @@ class logic:
                 sign = sternzeichen
                 print "sign is: "+sign
         if len(sign) == 0:
-            print "sign not found, use random one"
-            sign = signs[random.randint(0,len(signs)-1)]    
+            print "sign not found"
+            #sign = signs[random.randint(0,len(signs)-1)]
+            return ""
         url = "http://www.astrowelt.com/horoskop/tag/"+sign
         print "call url: "+url
         f = urllib.urlopen(url)
@@ -163,14 +164,25 @@ class logic:
             if(len(a.keywords)>0 and a.keywordmatch == 0):
                 #print "not good answer: "+a.tostring()
                 continue
-            #       standard answer
-            if((best == None and (len(a.keywords)==0 or a.keywordmatch > 0))\
-            or (a.getquality() > best.getquality() and a.keywordmatch > 0)\
-            or (len(best.keywords)==0 and len(a.keywords)==0 and best.answerused > a.answerused)):
+            #standard answer
+            if(best == None and len(a.keywords)==0 or a.keywordmatch > 0):
+                print 'first answer'
                 best = a
+            #better standard answer
+            elif(len(best.keywords) == 0 and len(a.keywords)==0 and best.answerused > a.answerused):
+                print 'better standart answer'
+                best = a        
+            
+            elif(best != None and len(best.keywords) == 0 and a.keywordmatch > 0):
+                print 'first keywordmatch answer'
+                best = a
+            elif( len(best.keywords) > 0 and a.getquality() > best.getquality() and a.keywordmatch > 0):
+                print 'better keywordmatch answer'
+                best = a           
+
         if(best == None):
-            return "keine antwort"
-        
+            return ""
+       
         best.answerused = best.answerused+1
         text = best.answer
         text = self.replacePlanets(text)
@@ -202,8 +214,31 @@ class logic:
             if(not(text.find(randomtext)>-1) or iEndlessLoop > len(data)*2):
                 text = text.replace(variable,randomtext,1)
         return text
-
+    
+    def saveUnansweredQuestion(self,text,user):
+        if(self.datastore != None):
+            self.datastore.saveUnansweredQuestion(text,user)
+        
     def saveanswerstofile(self):
         if(self.datastore != None and len(self.answers) > 0):
             self.datastore.saveanswerstofile(self.answers)
             print('saved')
+
+    def updateFiles(self):
+        newTweets = urllib.urlopen(TWEETUPDATEFILE)
+        fr = open(TWEET_FILE,'a')
+        for line in newTweets:
+            if line[0:1] != "#" and len(line) > 5:
+                fr.write(line)
+                print "new tweet added: "+line
+        fr.close()
+        newTweets.close()
+        
+        newAnswers = urllib.urlopen(ANSWERUPDATEFILE)
+        fa = open(ANSWER_FILE,'a')
+        for line in newAnswers:
+            if line[0:1] != "#" and len(line) > 5:
+                fa.write(line)
+                print "new answer added: "+line
+        fa.close()
+        newAnswers.close()

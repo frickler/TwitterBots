@@ -72,22 +72,15 @@ class Smart_Predictor():
     def process(self, status):
         user = status.user
         print 'got a message from @%s : %s' % (user.screen_name,status.text)
-        if user.screen_name.lower() != OWN_NAME:
-        
+        if user.screen_name.lower() != OWN_NAME.lower():
             #to get popular follow the questionasker:
-            try:
-
-                if not self.debug:
-                    if not API.exists_friendship(OWN_NAME, user.screen_name):
-                        api.create_friendship(user.screen_name)
-                        print('I follow now %s' % user.screen_name)
-                    else:
-                        print 'I follow already this guy: '+user.screen_name
-            except tweepy.error.TweepError:
-                print('cannot follow %s' % user.screen_name)
-                
+            self.whyCanWeBeFriends(user.screen_name)
+            
             #tweeted question is:
-            text = status.text.lower().replace('@'+OWN_NAME,'')
+            text = status.text.lower().replace('@'+OWN_NAME.lower(),'')
+            
+            self.pimpMeUp(text,user.screen_name)
+                        
             print 'asked question '+text
             #want to now the schicksalsjahre
             if 'schicksalsjahre' in text or 'schicksalsjahr' in text:
@@ -97,10 +90,9 @@ class Smart_Predictor():
                     return
                 self.reply(status,self.predictorlogic.getschicksalsjahre(sdatum))
                 return
-            if 'wochentendenz' in text:
+            elif 'wochentendenz' in text:
                 self.reply(status,self.predictorlogic.getwochentendenz())
-                return
-                
+                return               
             if 'tageswerte' in text:
                 sternzeichen = text.replace('Tageswerte','').replace(" ","").replace("<","").replace(">","")
                 if len(sternzeichen) < 3:
@@ -118,9 +110,32 @@ class Smart_Predictor():
                 return
                 
             #get an answer
-            answer = self.predictorlogic.getanswer(text)
-            if len(answer) > 0:
-                self.reply(status,answer)
+            answer = self.predictorlogic.getanswername(text,user.screen_name)
+            if len(answer) == 0:
+                self.predictorlogic.saveUnansweredQuestion(text,user.screen_name)
+            self.reply(status,answer)
+    
+    def pimpMeUp(self,pimptext,usr):
+        if usr.lower() != MASTER.lower() and usr.lower() != "flurischt":
+            return
+        print "user is master, try to pimp!"
+        
+        if pimptext.lower() == "wie gehts dir?":
+            print "update files, forced by keyword:wie gehts dir?"
+            self.predictorlogic.updateFiles()           
+    
+    def whyCanWeBeFriends(self,myNewFriend):
+        try:
+            if not self.debug:
+                if not self.api.exists_friendship(OWN_NAME, myNewFriend):
+                    self.api.create_friendship(myNewFriend)
+                    print('I follow now %s' % myNewFriend)
+                else:
+                    print 'I follow already this guy: '+myNewFriend
+            else:
+                print 'do not get more friend, we are dibögging'
+        except tweepy.error.TweepError:
+            print('cannot follow %s' % myNewFriend)
 
 
     def process_dbg(self, text):
@@ -136,8 +151,8 @@ class Smart_Predictor():
     def reply(self,status,answer):        
         message = '@%s %s' % (status.user.screen_name, answer)
         
-        if len(message) == 0:
-            print 'no message to return, do not reply'
+        if len(message) < 5:
+            print 'no message for replying'
             return
         
         if len(message) > 140:
