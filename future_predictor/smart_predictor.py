@@ -77,23 +77,31 @@ class Smart_Predictor():
             self.whyCanWeBeFriends(user.screen_name)
             
             #tweeted question is:
-            text = status.text.lower().replace('@'+OWN_NAME.lower(),'')
+            text = status.text.replace('@'+OWN_NAME.lower(),'')
+            loweredtext = text.lower()
             
             self.pimpMeUp(text,user.screen_name)
                         
             print 'asked question '+text
             #want to now the schicksalsjahre
-            if 'schicksalsjahre' in text or 'schicksalsjahr' in text:
+            if 'schicksalsjahre' in loweredtext or 'schicksalsjahr' in loweredtext:
                 sdatum = text.replace('Schicksalsjahre','').replace(" ","").replace("<","").replace(">","")
                 if len(sdatum) < 6:
                     self.reply(status,'Du hast dein Geburtsdatum vergessen')
                     return
                 self.reply(status,self.predictorlogic.getschicksalsjahre(sdatum))
                 return
-            elif 'wochentendenz' in text:
+            elif 'tarotkarte' in loweredtext:
+                sdatum = text.replace('Tarotkarte','').replace(" ","").replace("<","").replace(">","")
+                if len(sdatum) < 6:
+                    self.reply(status,'Du hast dein Geburtsdatum vergessen')
+                    return
+                self.reply(status,self.predictorlogic.gettarotkarte(sdatum))
+                return
+            elif 'wochentendenz' in loweredtext:
                 self.reply(status,self.predictorlogic.getwochentendenz())
                 return               
-            if 'tageswerte' in text:
+            elif 'tageswerte' in loweredtext:
                 sternzeichen = text.replace('Tageswerte','').replace(" ","").replace("<","").replace(">","")
                 if len(sternzeichen) < 3:
                     self.reply(status,'Sag mir auch dein Sternzeichen.')
@@ -101,19 +109,19 @@ class Smart_Predictor():
                 self.reply(status,self.predictorlogic.gettageswerte(sternzeichen))
                 return  
             
-            if 'tageshoroskop' in text:
+            elif 'tageshoroskop' in loweredtext:
                 sternzeichen = text.replace('tageshoroskop','').replace(" ","").replace("<","").replace(">","")
                 if len(sternzeichen) < 3:
                     self.reply(status,'Sag mir auch dein Sternzeichen.')
                     return
                 self.reply(status,self.predictorlogic.gettageshoroskop(sternzeichen))
                 return
-                
-            #get an answer
-            answer = self.predictorlogic.getanswername(text,user.screen_name)
-            if len(answer) == 0:
-                self.predictorlogic.saveUnansweredQuestion(text,user.screen_name)
-            self.reply(status,answer)
+            else:    
+                #get an answer
+                answer = self.predictorlogic.getanswername(text,user.screen_name)
+                if len(answer) == 0:
+                    self.predictorlogic.saveUnansweredQuestion(text,user.screen_name)
+                self.reply(status,answer)
     
     def pimpMeUp(self,pimptext,usr):
         if usr.lower() != MASTER.lower() and usr.lower() != "flurischt":

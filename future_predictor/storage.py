@@ -14,7 +14,15 @@ class storage:
         f.close()
         answer = self.linestoanswers(arry)
         return answer
-
+        
+    def gettarotcardsfromfile(self):
+        f = open(TAROT_FILE,'r')
+        arry = []
+        for line in f:
+            arry.append(line)
+        f.close()
+        return arry
+        
     def linestoanswers(self,lines):
         answers = []
         for l in lines:
