@@ -28,6 +28,8 @@ def get_me_a_tweet(tweets):
 
 def send_tweet():
     tweets = get_tweet_lines()
+    if len(tweets) == 0:
+        return
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
     api = tweepy.API(auth)
