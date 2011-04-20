@@ -54,20 +54,28 @@ class logic:
     
     def gettageswerte(self,ssternzeichen):
         sternzeichen = ssternzeichen.lower()
+        signs = self.datastore.getstarsgins()
         print "\npredict tageswerte for "+sternzeichen
         count = 0
+        sign = ""
+        for i in range(0, len(signs)):
+            if sternzeichen.lower() in signs[i].lower():
+                sign = signs[i]
+                print "sign is: "+sign        
         for i in range(0,len(sternzeichen)-1):
             count += ord(sternzeichen[i])
         count = count * int(time.strftime("%d"))   + int(time.strftime("%m")) 
-        
-        sReturn = "Tageswerte für Sternzeichen: "+ssternzeichen+NEW_LINE
+        sReturn = "Tageswerte"
+        if len(sign) > 0:
+            sReturn += " für Sternzeichen "+sign
+        sReturn += ": "+NEW_LINE
         sReturn +=  "Liebe: "+self.getStars((count+10)%7)+NEW_LINE
         sReturn +=  "Glück: "+self.getStars((count*3)%7)+NEW_LINE
         sReturn +=  "Gesundheit: "+self.getStars((count+ord(sternzeichen[2]))%7)+NEW_LINE
         sReturn +=  "Arbeit: "+self.getStars((count+ord(sternzeichen[2])/2)%7)+NEW_LINE
         return sReturn;
-
-    def getschicksalsjahre(self,text):
+    
+    def getDateFromString(self,text):
         month = "1"
         year = "2000"
         day = "1"
@@ -82,19 +90,37 @@ class logic:
         elif(len(text) >= 3):
             day = text[0]
             month = text[1]
-            year = text[2]    
-        
+            year = text[2]
+        return [getInt(day,23),getInt(month,12),getInt(year,1987)]
+
+    def gettarotkarte(self,text):
+        daymothyear = self.getDateFromString(text);
+        cards = self.datastore.gettarotcardsfromfile()
+        currentyear = getInt(time.strftime("%Y"),2011)
+        idx = (daymothyear[0]*2+daymothyear[1]*3+daymothyear[2]*4+currentyear%4) % len(cards)
+        print 'idx is '+str(idx)
+        card = cards[idx].split('###')
+        print card[1]
+        anzphrases = len(card[1].split('.'));
+        phraseidx = currentyear%(anzphrases-1)
+        print 'anzphrases: '+str(anzphrases)+' phraseidx: '+str(phraseidx)
+        phrase = card[1].split('.')[phraseidx]
+        rtrn = card[0]+':'+phrase+'.'
+        print 'return tarot phrase'+rtrn
+        return rtrn
+    
+    def getschicksalsjahre(self,text):
+        daymothyear = self.getDateFromString(text);
+        print 'year '+str(daymothyear[2])+' month '+str(daymothyear[1])+' day '+str(daymothyear[0])
         arry = []
-        
-        iMax = random.randint(2,4)
-        
-        arry.append(2012 + getInt(day,3))
+        iMax = ((daymothyear[0]+daymothyear[1]+daymothyear[2])%2) + 2
+        arry.append(2012 + getInt(daymothyear[0],3)*5%13)
         if iMax > 1:
-            arry.append(2000 + getInt(month,4))
+            arry.append(2010 + getInt(daymothyear[1],4)*12%13)
         if iMax > 2:
-            arry.append(2015 * getInt(month,7) / getInt(year,2012))
+            arry.append(2011 + getInt(daymothyear[1],7) / getInt(daymothyear[2],2012)+4)
         if iMax > 3:
-            arry.append(1920 + getInt(month,4) * getInt(day,12))
+            arry.append(1920 + getInt(daymothyear[1],4) * getInt(daymothyear[2],12))
         
         for i in range(0, len(arry)):
             print(arry[i])
@@ -111,7 +137,7 @@ class logic:
             if round(arry[i]) > round(arry[i+1]-2):
                 arry[i+1] = arry[i+1]+random.randint(1,4)
             sReturn += " "+str(int(arry[i]))
-            
+        sReturn += " "+str(int(arry[len(arry)-1]))    
         return "Deine Schicksalsjahre sind"+sReturn;
     
     def gettageshoroskop(self,sternzeichen):
@@ -119,13 +145,14 @@ class logic:
         signs = self.datastore.getstarsgins()
         sign = ""
         sternzeichen = sternzeichen.replace(" ","")
-        for i in range(0, len(signs)-1):
-            if sternzeichen.lower() == signs[i].lower():
+        for i in range(0, len(signs)):
+            if sternzeichen.lower() in signs[i].lower():
                 sign = sternzeichen
                 print "sign is: "+sign
         if len(sign) == 0:
-            print "sign not found, use random one"
-            sign = signs[random.randint(0,len(signs)-1)]    
+            print "sign not found"
+            #sign = signs[random.randint(0,len(signs)-1)]
+            return ""
         url = "http://www.astrowelt.com/horoskop/tag/"+sign
         print "call url: "+url
         f = urllib.urlopen(url)
@@ -163,14 +190,25 @@ class logic:
             if(len(a.keywords)>0 and a.keywordmatch == 0):
                 #print "not good answer: "+a.tostring()
                 continue
-            #       standard answer
-            if((best == None and (len(a.keywords)==0 or a.keywordmatch > 0))\
-            or (a.getquality() > best.getquality() and a.keywordmatch > 0)\
-            or (len(best.keywords)==0 and len(a.keywords)==0 and best.answerused > a.answerused)):
+            #standard answer
+            if(best == None and len(a.keywords)==0 or a.keywordmatch > 0):
+                print 'first answer'
                 best = a
+            #better standard answer
+            elif(len(best.keywords) == 0 and len(a.keywords)==0 and best.answerused > a.answerused):
+                print 'better standart answer'
+                best = a        
+            
+            elif(best != None and len(best.keywords) == 0 and a.keywordmatch > 0):
+                print 'first keywordmatch answer'
+                best = a
+            elif( len(best.keywords) > 0 and a.getquality() > best.getquality() and a.keywordmatch > 0):
+                print 'better keywordmatch answer'
+                best = a           
+
         if(best == None):
-            return "keine antwort"
-        
+            return ""
+       
         best.answerused = best.answerused+1
         text = best.answer
         text = self.replacePlanets(text)
@@ -202,8 +240,31 @@ class logic:
             if(not(text.find(randomtext)>-1) or iEndlessLoop > len(data)*2):
                 text = text.replace(variable,randomtext,1)
         return text
-
+    
+    def saveUnansweredQuestion(self,text,user):
+        if(self.datastore != None):
+            self.datastore.saveUnansweredQuestion(text,user)
+        
     def saveanswerstofile(self):
         if(self.datastore != None and len(self.answers) > 0):
             self.datastore.saveanswerstofile(self.answers)
             print('saved')
+
+    def updateFiles(self):
+        newTweets = urllib.urlopen(TWEETUPDATEFILE)
+        fr = open(TWEET_FILE,'a')
+        for line in newTweets:
+            if line[0:1] != "#" and len(line) > 5:
+                fr.write(line)
+                print "new tweet added: "+line
+        fr.close()
+        newTweets.close()
+        
+        newAnswers = urllib.urlopen(ANSWERUPDATEFILE)
+        fa = open(ANSWER_FILE,'a')
+        for line in newAnswers:
+            if line[0:1] != "#" and len(line) > 5:
+                fa.write(line)
+                print "new answer added: "+line
+        fa.close()
+        newAnswers.close()

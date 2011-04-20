@@ -35,4 +35,5 @@ Ist dein Partner im Sternzeichen %starsign% oder %starsign%, dann wird es was.|0
 Ein Jobwechsel nur machen wenn du bereits eine neue Stelle hast|0|neuer Job;Jobwechsel
 Dein Liebesleben wird sich ab nächster Woche markant verbessern|0|Liebesleben;Aussichten in der Liebe;Liebe
 Die nächsten Lottozahlen lauten: 12,18,20,34,36,45  12 Plus 3|0|Wie lauten die Lottozahlen;Lottozahlen voraussagen;Lottozahlen der nächsten Ziehung;Lottozahlen
-
+Danke, mir geht es gut.|0|wie gehts dir;wie gehts dir;wie gehts dir;wie gehts dir;wie gehts dir;wie gehts dir;wie gehts dir;wie gehts dir
+Dein Liebesleben wird sich ab nächster Woche markant verbessern|0|Liebesleben;Aussichten in der Liebe;Liebe

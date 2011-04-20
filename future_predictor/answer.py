@@ -24,7 +24,7 @@ class answer:
      for kword in self.keywords:
         if len(str(kword)) > 0 and str(kword).lower() in init_question.lower():
             self.keywordmatch += 1
-            #print("found "+kword)
+            print("Keyword matched: "+kword)
      return self.keywordmatch
 
  def getquality(self):

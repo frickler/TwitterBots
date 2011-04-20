@@ -14,7 +14,15 @@ class storage:
         f.close()
         answer = self.linestoanswers(arry)
         return answer
-
+        
+    def gettarotcardsfromfile(self):
+        f = open(TAROT_FILE,'r')
+        arry = []
+        for line in f:
+            arry.append(line)
+        f.close()
+        return arry
+        
     def linestoanswers(self,lines):
         answers = []
         for l in lines:
@@ -31,7 +39,11 @@ class storage:
         answers = self.getanswersfromfile()
         print("\nTotal answers loaded: "+str(len(answers)))
         return answers
-
+    
+    def saveUnansweredQuestion(self,text,user):
+        f = open(UNANSWERED_FILE,'a')
+        f.write("\n"+user+"|"+text)
+        f.close()
     def saveanswerstofile(self,answers):
         h = open(ANSWER_HEADER_FILE,'r')
         f = open(ANSWER_FILE,'w')
